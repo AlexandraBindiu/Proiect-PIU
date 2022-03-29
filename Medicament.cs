@@ -16,20 +16,20 @@ namespace LibrarieModele
         //proprietati auto-implemented
         private int idMedicament; //identificator unic medicament
         private string denumire;
-        private string pret;
-        private string producator;
-        private string valabilitate;  //anul in care medicamentul expira
+        private double pret;
+        private string producator; //tara de origine
+        private int valabilitate;  //anul in care medicamentul expira
 
-        //contructor implicit
+        
         public Medicament()
         {
-            denumire = producator = pret =valabilitate= string.Empty;
-            //pret = 0;
-            //valabilitate = 0;
+            denumire = producator = string.Empty;
+            pret = 0;
+            valabilitate = 0;
         }
 
-        //constructor cu parametri
-        public Medicament(int idMedicament, string denumire, string pret, string producator, string valabilitate)
+        
+        public Medicament(int idMedicament, string denumire, double pret, string producator, int valabilitate)
         {
             this.idMedicament = idMedicament;
             this.denumire = denumire;
@@ -39,26 +39,28 @@ namespace LibrarieModele
         }
 
         //constructor cu un singur parametru de tip string care reprezinta o linie dintr-un fisier text
+        
         public Medicament(string linieFisier)
         {
             var dateFisier = linieFisier.Split(SEPARATOR_PRINCIPAL_FISIER);
-
+            
             //ordinea de preluare a campurilor este data de ordinea in care au fost scrise in fisier prin apelul implicit al metodei ConversieLaSir_PentruFisier()
             idMedicament = Convert.ToInt32(dateFisier[ID]);
             denumire = dateFisier[DENUMIRE];
-            pret = dateFisier[PRET];
+            pret = Convert.ToDouble(dateFisier[PRET]);
             producator = dateFisier[PRODUCATOR];
-            valabilitate = dateFisier[VALABILITATE];
+            valabilitate = Convert.ToInt32(dateFisier[VALABILITATE]);
         }
 
+      
         public string ConversieLaSir_PentruFisier()
         {
             string obiectMedicamentPentruFisier = string.Format("{1}{0}{2}{0}{3}{0}{4}{0}{5}{0}",
                    SEPARATOR_PRINCIPAL_FISIER,
                    idMedicament.ToString(),
-                   denumire.ToString(),
+                   (denumire ?? " NECUNOSCUT "),
                    pret.ToString(),
-                   producator.ToString(),
+                   (producator ?? " NECUNOSCUT "),
                    valabilitate.ToString());
 
             return obiectMedicamentPentruFisier;
@@ -72,7 +74,7 @@ namespace LibrarieModele
         {
             return denumire;
         }
-        public string GetPret()
+        public double GetPret()
         {
             return pret;
         }
@@ -80,9 +82,10 @@ namespace LibrarieModele
         {
             return producator;
         }
-        public string GetValabilitate()
+        public int GetValabilitate()
         {
             return valabilitate;
         }
     }
 }
+
