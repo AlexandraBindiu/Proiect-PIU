@@ -36,18 +36,18 @@ namespace GestiuneFarmacie
             do
             {
                 Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-                Console.WriteLine("~ F. Afisare medicamente din fisier      ~");
+                Console.WriteLine("~ P. Afisare medicamente din fisier      ~");
                 Console.WriteLine("~ S. Salvare medicament in fisier        ~");
-                Console.WriteLine("~ C. Adauga medicament de la tastatura   ~");
-                Console.WriteLine("~ L. cauta medicament dupa denumire      ~");
-                //Console.WriteLine("~ P. Stergere medicament                 ~");
+                Console.WriteLine("~ A. Adauga medicament de la tastatura   ~");
+                Console.WriteLine("~ C. Cauta medicament dupa denumire      ~");
+                Console.WriteLine("~ V. Vizualizare produse vandute         ~");
                 Console.WriteLine("~ X. Inchidere program                   ~");
                 Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                 Console.WriteLine("Alegeti o optiune: ");
                 optiune = Console.ReadLine();
                 switch (optiune.ToUpper())
                 {
-                    case "F":
+                    case "P":
                         Medicament[] medicamente = adminMedicamente.GetMedicamente(out nrMedicamente);
                         AfisareMedicamente(medicamente, nrMedicamente);
                         break;
@@ -69,7 +69,7 @@ namespace GestiuneFarmacie
                         adminMedicamente.AddMedicament(medicament);
                         break;
 
-                    case "C":
+                    case "A":
                         Console.WriteLine("Introduceti denumirea medicamentului: ");
                         denumireNoua = Console.ReadLine();
                         Console.WriteLine("Introduceti pretul medicamentului: ");
@@ -79,7 +79,7 @@ namespace GestiuneFarmacie
                         Console.WriteLine("Introduceti anul de valabilitate a medicamentului: ");
                         valabilitateNoua = Convert.ToInt32(Console.ReadLine());
                         break;
-                    case "L":
+                    case "C":
                         Console.WriteLine("Introduti denumirea medicamentului cautat:");
                         Denumire = Console.ReadLine();
                         existingMedicament = adminMedicamente.GetMedicament(Denumire);
@@ -116,7 +116,21 @@ namespace GestiuneFarmacie
                         }
                         break;
                     */
-
+                    case "V":
+                        string[,] stocuri = new string[5, 2] { { "Paracetamol", "5 bucati" }, { "Ibusinus", "7 bucati" }, {"Faringo", "4 bucati"}, {"Strepsils","8 bucati"}, { "Ospen", "3 bucati" } };
+                        Console.WriteLine("Astazi s-au vandut:");
+                        //Console.WriteLine(stocuri[0, 0] + " - " + stocuri[0, 1]);
+                        //Console.WriteLine(stocuri[1, 0] + " - " + stocuri[1, 1]);
+                        //Console.WriteLine(stocuri[2, 0] + " - " + stocuri[2, 1]);
+                        //Console.WriteLine(stocuri[3, 0] + " - " + stocuri[3, 1]);
+                        //Console.WriteLine(stocuri[4, 0] + " - " + stocuri[4, 1]);
+                        for (int i = 0; i < 5; i++)
+                        {
+                            for (int j = 0; j < 2; j++)
+                                Console.Write(stocuri[i, j]+" ");
+                            Console.Write("\n");
+                        }
+                        break;
                     case "X":
                         return;
                     default:
